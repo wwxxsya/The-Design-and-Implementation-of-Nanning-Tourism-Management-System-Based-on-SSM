@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.AdminBuserDao">
+	<select id="userInfo"  resultType="Buser" >
+		select * from buser
+	</select>
+	<delete id="deleteuserManager"  parameterType="Integer" >
+		delete from buser where id = #{id}
+	</delete>
+	<!-- 新增用户 -->
+	<insert id="addBuser" parameterType="Buser" >
+		insert into buser (id,bemail,bpwd)
+		values (null,#{bemail},#{bpwd})
+	</insert>
+	<!-- 修改用户信息-->
+	<update id="updateBuserById" parameterType="Buser">
+    update buser
+    <set>
+      <if test="bemail != null">
+        bemail = #{bemail},
+      </if>
+      <if test="bpwd != null">
+        bpwd = #{bpwd},
+      </if>
+    </set>
+    	where id = #{id}
+  </update>
+  <!-- 根据ID查询Buser信息 -->
+  <select id="selectBuserById"  resultType="Buser" parameterType="Integer">
+		select * from buser where buser.id=#{id}
+  </select>
+  
+</mapper>

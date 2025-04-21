@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.IndexDao">
+<select id="getArticleList" resultType="Article">
+	select * from article where  articlename IN ('南宁简介','南宁历史','南宁文化')
+	</select>
+	<select id="getFoodList" resultType="Food" parameterType="Food">
+	select * from food order by fid desc 
+	</select>
+	<select id="getScenicList" resultType="Scenic" parameterType="Scenic">
+	select * from scenic order by sid desc limit 4
+	</select>
+	<select id="getNoticeList" resultType="Notice" parameterType="Notice">
+	select * from notice order by nid desc 
+	</select>
+	<select id="selectArticleById" resultType="Article" parameterType="Integer">
+	select a.*,u.name from article a  LEFT JOIN users u ON a.publisher=u.id where a.aid=#{aid} 
+	</select>
+	<!-- 首页搜索 -->
+	<select id="search" resultType="Article" parameterType="String">
+		SELECT a.* FROM article a WHERE a.articlename LIKE CONCAT('%', #{mykey}, '%')
+	</select>
+</mapper>

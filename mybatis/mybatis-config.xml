@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+<typeAliases>
+	
+	
+	<typeAlias alias="Auser" type="com.po.Auser"/>
+	<typeAlias alias="Buser" type="com.po.Buser"/>
+	<typeAlias alias="Food" type="com.po.Food"/>
+	<typeAlias alias="Scenic" type="com.po.Scenic"/>
+	<typeAlias alias="Notice" type="com.po.Notice"/>
+	<typeAlias alias="Article" type="com.po.Article"/>
+	<typeAlias alias="Team" type="com.po.Team"/>
+	<typeAlias alias="Message" type="com.po.Message"/>
+	<typeAlias alias="Admin" type="com.po.Admin"/> 
+        	<typeAlias alias="ArticleType" type="com.po.ArticleType"/> 
+        	<typeAlias alias="Bannar" type="com.po.Bannar"/> 
+        	<typeAlias alias="ScenicType" type="com.po.ScenicType"/> 
+	<typeAlias alias="Contact" type="com.po.Contact"/>	
+        	<typeAlias alias="NoticeType" type="com.po.NoticeType"/>
+        	<typeAlias alias="NoticeDetail" type="com.po.NoticeDetail"/>
+	
+</typeAliases>
+<mappers>
+
+<mapper resource="com/mybatis/before/IndexMapper.xml"/>
+<mapper resource="com/mybatis/before/UserMapper.xml"/>
+<mapper resource="com/mybatis/before/CultureMapper.xml"/>
+<mapper resource="com/mybatis/before/HistoryMapper.xml"/>
+<mapper resource="com/mybatis/before/ScenicMapper.xml"/>
+<mapper resource="com/mybatis/before/FoodMapper.xml"/>
+<mapper resource="com/mybatis/before/TeamMapper.xml"/>
+<mapper resource="com/mybatis/before/NoticeMapper.xml"/>
+<mapper resource="com/mybatis/before/MessageMapper.xml"/>
+
+<mapper resource="com/mybatis/admin/AdminArticleMapper.xml"/>
+        	<mapper resource="com/mybatis/admin/AdminArticleTypeMapper.xml"/>
+        	<mapper resource="com/mybatis/admin/AdminBannarMapper.xml"/>
+        	<mapper resource="com/mybatis/admin/AdminMapper.xml"/>
+        	<mapper resource="com/mybatis/admin/AdminMessageMapper.xml"/>
+        	<mapper resource="com/mybatis/admin/AdminScenicMapper.xml"/>
+        	<mapper resource="com/mybatis/admin/AdminScenicTypeMapper.xml"/>
+	<mapper resource="com/mybatis/admin/AdminContactMapper.xml"/>
+        	<mapper resource="com/mybatis/admin/AdminNoticeMapper.xml"/>
+        	<mapper resource="com/mybatis/admin/AdminNoticeTypeMapper.xml"/>	
+        	<mapper resource="com/mybatis/admin/AdminBuserMapper.xml"/>
+</mappers>
+</configuration>

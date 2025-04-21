@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.1//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.AdminScenicDao">
+	<!-- 查询商品 -->
+	<select id="selectScenic"  resultType="Scenic">
+		select st.*,sy.st,ay.articlename from scenic st,scenictype sy, article ay where st.stid=sy.stid and st.aid=ay.aid
+	</select>
+	<!-- 分页查询商品 -->
+	<select id="selectAllScenicByPage"  resultType="Scenic" parameterType="map">
+		select st.*,sy.st,ay.articlename from scenic st,scenictype sy, article ay where st.stid=sy.stid and st.aid=ay.aid order by sid limit #{startIndex}, #{perPageSize}
+	</select>
+	<!-- 添加商品 -->
+	<insert id="addScenic" parameterType="Scenic">
+		insert into scenic (sid,stid,sname,image,aid,lx) 
+		values (null, #{stid}, #{sname}, #{image}, #{aid} ,'景点')
+	</insert>
+	<!-- 根据id查询一个商品 -->
+	<select id="selectScenicById"  resultType="Scenic" parameterType="Integer">
+		select st.* ,sy.st ,ay.articlename from scenic st, scenictype sy, article ay where st.sid=#{id} and st.stid = sy.stid and st.aid=ay.aid
+	</select>
+	<!-- 删除多个商品 -->
+	<delete id="deleteScenic"  parameterType="List">
+		delete from scenic where sid in
+		<foreach item="item" index="index" collection="list"
+		open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</delete>
+	<!-- 根据通知类型进行查询具体通知 -->
+	<select id="selectScenicByType"  resultType="Scenic" parameterType="String">
+		select st.*, sy.st ,ay.articlename from scenic st, scenictype sy, article ay where st.stid=sy.stid and st.sid=ay.aid and st.sname=#{sname}
+	</select>
+	<!-- 删除单个商品 -->
+	<delete id="deleteAScenic" parameterType="Integer">
+		delete from scenic where sid=#{id}
+	</delete>
+	<!-- 修改一个商品 -->
+	<update id="updateScenicById" parameterType="Scenic">
+    update scenic
+    <set>
+      <if test="stid != null">
+        stid = #{stid},
+      </if>
+      <if test="sname != null">
+        sname = #{sname},
+      </if>
+      <if test="image != null">
+        image = #{image},
+      </if>
+      <if test="aid != null">
+        aid = #{aid},
+      </if>
+    </set>
+    	where sid = #{sid}
+  </update>
+ 
+</mapper>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.1//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.AdminBannarDao">
+	<select id="deleteBannarSelect"  resultType="Bannar" >
+		select * from bannar
+	</select>
+	<insert id="addBannar" parameterType="Bannar">
+		insert into bannar (bannerid,image,state) 
+		values (null,#{image},1)
+	</insert>
+	<delete id="deleteBannar" parameterType="Integer">
+		delete from bannar where bannerid = #{id}
+	</delete>
+	<select id="selectABannar"  resultType="Bannar" parameterType="Integer">
+		select * from bannar where bannerid = #{id}
+	</select> 
+	<select id="selectBannarByID"  resultType="Bannar" parameterType="String">
+		SELECT * FROM bannar WHERE  bannerid=#{info} 
+	</select>
+	<!-- 修改 -->
+	<update id="updateBannarById" parameterType="Bannar">
+    update bannar
+    <set>
+      <if test="image != null">
+        image = #{image},
+      </if>
+      <if test="state != null">
+        state = #{state},
+      </if>
+    </set>
+    	where bannerid = #{id}
+  </update>
+</mapper>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.AdminNoticeDao">
+	<select id="showAllNotices"  resultType="Notice">
+		select nt.*,ny.nt,ay.articlename from notice nt,noticetype ny, article ay where nt.ntid=ny.ntid and nt.aid=ay.aid
+	</select>
+	<select id="selectAllNoticeByPage"  resultType="Notice" parameterType="map">
+		select nt.*,ny.nt,ay.articlename from notice nt,noticetype ny, article ay where nt.ntid=ny.ntid and nt.aid=ay.aid order by nid limit #{startIndex}, #{perPageSize}
+	</select>
+	<!-- 添加通知  不是这么写的-->
+	<insert id="addNotice" parameterType="Notice">
+		insert into notice (nid,ntid,nname,aid) 
+		values (null, #{ntid}, #{nname}, #{aid})
+	</insert>
+	<!-- 修改一个通知 -->
+	<update id="updateNoticeById" parameterType="Notice">
+    update notice
+    <set>
+      <if test="nname != null">
+        nname = #{nname},
+      </if>
+      <if test="ntid != null">
+        ntid = #{ntid},
+      </if>
+      <if test="aid != null">
+        aid = #{aid},
+      </if>
+    </set>
+    	where nid = #{nid}
+  </update>
+	
+	<delete id="deleteANotice" parameterType="Integer">
+		delete from notice where nid=#{id}
+	</delete> <!-- 删除单个通知 -->
+	<!-- 删除多个通知 -->
+	<delete id="deleteNotice"  parameterType="List">
+		delete from notice where nid in
+		<foreach item="item" index="index" collection="list"
+		open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</delete>
+	
+	<!-- 根据id查询一个通知-->
+	<select id="selectANotice"  resultType="Notice" parameterType="Integer">
+		select nt.* ,ny.nt ,ay.articlename from notice nt, noticetype ny, article ay where nt.nid=#{id} and nt.ntid = ny.ntid and nt.aid=ay.aid
+	</select>
+	
+	<!-- 根据id查询"通知"的特别详细信息 -->
+	<select id="noiceDetail"  resultType="NoticeDetail" parameterType="Integer">
+		select nt.* ,ny.nt ,ay.* ,ayt.at from notice nt, noticetype ny, article ay, articletype ayt where nt.nid=#{id} and nt.ntid = ny.ntid and nt.aid=ay.aid and ay.artid =ayt.artid
+	</select>
+	<!-- 根据通知类型进行查询具体通知 -->
+	<select id="selectNoticeByType"  resultType="Notice" parameterType="String">
+		select nt.*, ny.nt ,ay.articlename from notice nt, noticetype ny, article ay where nt.ntid=ny.ntid and nt.aid=ay.aid and ny.nt = #{nt}
+	</select>
+	
+</mapper>

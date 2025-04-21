@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.1//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- com.dao.AdminArticleTypeDao对应Dao接口 -->
+<mapper namespace="com.dao.AdminArticleTypeDao">
+	<!-- 查询文章类型信息 -->
+	<select id="selectArticleType"  resultType="ArticleType" >
+		select * from articletype
+	</select>
+	<insert id="addArticleType" parameterType="String">
+		insert into articletype (atid, atype) values (null, #{atype})
+	</insert>
+	<delete id="deleteArticleType" parameterType="Integer">
+		delete from articletype where atid = #{id}
+	</delete>
+	<select id="selectArticleByType" resultType="Article" parameterType="Integer">
+		select * from article where atid=#{id}
+	</select>
+</mapper>

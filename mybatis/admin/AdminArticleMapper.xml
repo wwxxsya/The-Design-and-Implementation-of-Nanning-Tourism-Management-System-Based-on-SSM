@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.1//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.AdminArticleDao">
+	<!-- 查询商品 -->
+	<select id="selectArticle"  resultType="Article">
+		select * from article
+	</select>
+	<!-- 分页查询商品 -->
+	<select id="selectAllArticleByPage"  resultType="Article" parameterType="map">
+		select * from article order by aid limit #{startIndex}, #{perPageSize}
+	</select>
+	<!-- 添加商品 -->
+	<insert id="addArticle" parameterType="Article">
+		insert into article (aid,atid,publisher,releasetime,content,image,articlename) 
+		values (null, #{atid}, #{publisher}, now(), #{content}, #{image}, #{articlename})
+	</insert>
+	<!-- 根据id查询一个商品 -->
+	<select id="selectArticleById"  resultType="Article" parameterType="Integer">
+		select a.*,ay.atype from article a,articletype ay where a.aid=#{id} and a.atid = ay.atid
+	</select>
+	<!-- 删除多个商品 -->
+	<delete id="deleteArticle"  parameterType="List">
+		delete from article where aid in
+		<foreach item="item" index="index" collection="list"
+		open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</delete>
+	<!-- 删除单个商品 -->
+	<delete id="deleteAArticle" parameterType="Integer">
+		delete from article where aid=#{id}
+	</delete>
+	<!-- 修改一个商品 -->
+	<update id="updateArticleById" parameterType="Article">
+    update article
+    <set>
+      <if test="atid != null">
+        atid = #{atid},
+      </if>
+      <if test="publisher != null">
+        publisher = #{publisher},
+      </if>
+      <if test="releasetime != null">
+        releasetime = #{releasetime},
+      </if>
+      <if test="content != null">
+        content = #{content},
+      </if>
+      <if test="image != null">
+        image = #{image},
+      </if>
+      <if test="articlename != null">
+        articlename = #{articlename},
+      </if>
+    </set>
+    	where aid = #{aid}
+  </update>
+ 
+</mapper>

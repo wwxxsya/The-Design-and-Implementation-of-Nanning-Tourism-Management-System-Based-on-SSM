@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- com.dao.AdminNoticeTypeDao对应Dao接口 -->
+<mapper namespace="com.dao.AdminNoticeTypeDao">
+
+<!-- 查询通知类型信息 -->
+	<select id="selectNoticeType"  resultType="NoticeType" >
+		select * from noticetype
+	</select>
+	<insert id="addNoticeType" parameterType="String">
+		insert into noticetype (ntid, nt) values (null, #{typename})
+	</insert>
+	<delete id="deleteNoticeType" parameterType="Integer">
+		delete from noticetype where ntid = #{id}
+	</delete>
+	<select id="selectNoticeByTypeById" resultType="Notice" parameterType="Integer">
+		select * from notice where ntid=#{id}
+	</select>
+
+</mapper>

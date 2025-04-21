@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.1//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- com.dao.AdminArticleTypeDao对应Dao接口 -->
+<mapper namespace="com.dao.AdminScenicTypeDao">
+	<!-- 查询文章类型信息 -->
+	<select id="selectScenicType"  resultType="ScenicType" >
+		select * from scenictype
+	</select>
+	<insert id="addScenicType" parameterType="String">
+		insert into scenictype (stid, st) values (null, #{st})
+	</insert>
+	<delete id="deleteScenicType" parameterType="Integer">
+		delete from scenictype where stid = #{id}
+	</delete>
+	<select id="selectScenicByType" resultType="Scenic" parameterType="Integer">
+		select * from scenic where stid=#{id}
+	</select>
+</mapper>
